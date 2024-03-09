@@ -1,3 +1,4 @@
+#!/usr/bin/node
 import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
 
