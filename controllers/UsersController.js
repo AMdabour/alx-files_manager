@@ -1,6 +1,9 @@
 #!/usr/bin/node
 import sha1 from 'sha1';
+import Queue from 'bull';
 import dbClient from '../utils/db';
+
+const userQueue = new Queue('userQueue');
 
 class UsersController {
   /**
@@ -22,12 +25,17 @@ class UsersController {
         password: hashedPassword,
       });
     } catch (err) {
+      await userQueue.add({});
       return res.status(500).send({ error: 'Error creating user.' });
     }
     const users = {
       id: result.insertedId,
       email,
     };
+
+    await userQueue.add({
+      userId: result.insertedId.toString(),
+    });
 
     return res.status(201).send(users);
   }
