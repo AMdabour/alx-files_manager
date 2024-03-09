@@ -9,26 +9,27 @@ class UsersController {
   /**
    * Creates a user using email and password
    */
-  static async postNew (req, res) {
-    // console.log('Request body:', req.body); identify if the request
-    // body is reaching the handler with the expected data.
-    const { email, password } = req.body;
-    if (!email) return res.status(400).send({ error: 'Missing email' });
-    if (!password) return res.status(400).send({ error: 'Missing password' });
-    const existEmail = await dbClient.userscollection.findOne({ email });
-    if (existEmail) return res.status(400).send({ error: 'Email already exists' });
-    const hashedPassword = sha1(password);
+  static async postNew(request, response) {
+    const { email, password } = request.body;
+
+    if (!email) return response.status(400).send({ error: 'Missing email' });
+    if (!password) { return response.status(400).send({ error: 'Missing password' }); }
+    const emailExists = await dbClient.usersCollection.findOne({ email });
+    if (emailExists) { return response.status(400).send({ error: 'Already exist' }); }
+    const sha1Password = sha1(password);
+
     let result;
     try {
-      result = await dbClient.userscollection.insertOne({
+      result = await dbClient.usersCollection.insertOne({
         email,
-        password: hashedPassword,
+        password: sha1Password,
       });
     } catch (err) {
       await userQueue.add({});
-      return res.status(500).send({ error: 'Error creating user.' });
+      return response.status(500).send({ error: 'Error creating user.' });
     }
-    const users = {
+
+    const user = {
       id: result.insertedId,
       email,
     };
@@ -37,8 +38,9 @@ class UsersController {
       userId: result.insertedId.toString(),
     });
 
-    return res.status(201).send(users);
+    return response.status(201).send(user);
   }
+
 }
 
 export default UsersController;
