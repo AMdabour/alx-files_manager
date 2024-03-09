@@ -11,7 +11,7 @@ const url = `mongodb://${DB_HOST}:${DB_PORT}`;
  * @class
  */
 class DBClient {
-  constructor() {
+  constructor () {
     this.connect();
   }
 
@@ -19,7 +19,7 @@ class DBClient {
    * Establishes a connection to the MongoDB server and initializes the 'users'
    * and 'files' collections.
    */
-  async connect() {
+  async connect () {
     try {
       const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
       await client.connect();
@@ -35,14 +35,14 @@ class DBClient {
   /**
    * Checks if the connection to the MongoDB server is alive.
    */
-  isAlive() {
+  isAlive () {
     return Boolean(this.db);
   }
 
   /**
    * Retrieves the number of documents in the 'users' collection.
    */
-  async nbUsers() {
+  async nbUsers () {
     try {
       const ndbUser = await this.userscollection.countDocuments();
       return ndbUser;
@@ -55,7 +55,7 @@ class DBClient {
   /**
    * Retrieves the number of documents in the 'files' collection.
    */
-  async nbFiles() {
+  async nbFiles () {
     try {
       const ndFiles = await this.filescollection.countDocuments();
       return ndFiles;

@@ -2,6 +2,9 @@ import sha1 from 'sha1';
 import dbClient from '../utils/db';
 
 class UsersController {
+  /**
+   * Creates a user using email and password
+   */
   static async postNew (req, res) {
     // console.log('Request body:', req.body); identify if the request
     // body is reaching the handler with the expected data.
