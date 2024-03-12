@@ -27,7 +27,7 @@ class UsersController {
       res.status(401).json({ error: 'Unauthorized' }).end();
       return;
     }
-    res.json({email: user.email, id: user._id}).end()
+    res.json({email: user.email, id: user._id}).end();
   }
 
   static async postNew(req, res) {
@@ -36,7 +36,7 @@ class UsersController {
     if (!email) return res.status(400).send({ error: 'Missing email' });
     if (!password) return res.status(400).send({ error: 'Missing password' });
     const existEmail = await dbClient.userscollection.findOne({ email });
-    if (existEmail) return res.status(400).send({ error: 'Email already exists' });
+    if (existEmail) return res.status(400).send({ error: 'Already exist' });
     const hashedPassword = sha1(password);
     let result;
     try {
