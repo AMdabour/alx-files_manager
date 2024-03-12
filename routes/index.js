@@ -20,6 +20,8 @@ const makeRoutes = (api) => {
   api.post('/files', FilesController.postUpload);
   api.get('/files', FilesController.getIndex);
   api.get('/files/:id', FilesController.getShow);
+  api.put('/files/:id/publish', FilesController.putPublish);
+  api.put('/files/:id/unpublish', FilesController.putUnpublish);
 };
 
 export default makeRoutes;

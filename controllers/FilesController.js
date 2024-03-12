@@ -173,6 +173,38 @@ class FilesController {
     });
     return null;
   }
+
+  static async putPublish(req, res) {
+    const user = FilesController.getUser(req);
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized'});
+    }
+    const _id = new ObjectID(req.params.id);
+    const newValue = { $set: { isPublic: truee } };
+    const options = { returnOriginal: false };
+    dbClient.db.collection('files').findOneAndUpdate({ _id, userId: user._id }, newValue, options, (err, file) => {
+      if (!file.lastErrorObject.updatedExisting) {
+        return res.status(404).json({ error: 'Not found' });
+      }
+      return res.status(200).json(file);
+    })
+  }
+
+  static async putUnpublish(req, res) {
+    const user = await FilesController.getUser(req);
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized'});
+    }
+    const _id = new ObjectID(req.params.id);
+    const newValue = { $set: { isPublic: false } };
+    const options = { returnOriginal: false };
+    dbClient.db.collection('files').findOneAndUpdate({ _id, userId: user._id }, newValue, options, (err, file) => {
+      if (!file.lastErrorObject.updatedExisting) {
+        return res.status(404).json({ error: 'Not found' });
+      }
+      return res.status(200).json(file);
+    })
+  }
 }
 
 module.exports = FilesController;
