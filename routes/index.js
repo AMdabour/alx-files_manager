@@ -2,6 +2,7 @@
 import AppController from '../controllers/AppController';
 import AuthController from '../constrollers/AuthController';
 import UsersController from '../controllers/UsersController';
+import FilesController from '../controllers/FilesController';
 
 const makeRoutes = (api) => {
   // should return if Redis is alive and if the DB is alive
@@ -14,9 +15,11 @@ const makeRoutes = (api) => {
   // User Controller
 
   // should create a new user in DB
-  api.post('/users', (req, res) => {
-    UsersController.postNew(req, res);
-  });
+  api.post('/users', UsersController.postNew);
+  // some endpoints related to files operations
+  api.post('/files', FilesController.postUpload);
+  api.get('/files', FilesController.getIndex);
+  api.get('/files/:id', FilesController.getShow);
 };
 
 export default makeRoutes;

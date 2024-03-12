@@ -1,5 +1,6 @@
 #!/usr/bin/node
 const { MongoClient } = require('mongodb');
+const mongo = require('mongodb');
 
 const DB_HOST = process.env.DB_HOST || 'localhost';
 const DB_PORT = process.env.DB_PORT || 27017;
@@ -64,6 +65,25 @@ class DBClient {
       return -1;
     }
   }
+
+  // async getUser(email) {
+  //   await this.client.connect();
+  //   const user = await this.client.db(this.db).collection('users').find({ email }).toArray();
+  //   if (!user.length) {
+  //     return null;
+  //   }
+  //   return user[0];
+  // }
+
+  // async getUserById(id) {
+  //   const _id = new mongo.ObjectID(id);
+  //   await this.client.connect();
+  //   const user = await this.client.db(this.db).collection('users').find({ _id }).toArray();
+  //   if (!user.length) {
+  //     return null;
+  //   }
+  //   return user[0];
+  // }
 }
 
 const dbClient = new DBClient();
