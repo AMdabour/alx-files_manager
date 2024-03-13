@@ -6,7 +6,7 @@ function pwdHashed(pwd) {
 
 function getAuthHeader(req) {
     let authHeader = req.headers['authorization'];
-    if (auth && typeof auth === 'string') {
+    if (authHeader && typeof authHeader === 'string') {
         return authHeader;
     }
     return null;
