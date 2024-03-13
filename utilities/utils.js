@@ -13,11 +13,11 @@ function getAuthHeader(req) {
 }
 
 function getToken(authHeader) {
-    let tokenType = authHeader.subString(0, 6);
+    let tokenType = authHeader.substring(0, 6);
     if  (tokenType !== "Basic ") {
         return null;
     }
-    return authHeader.subString(6).trim();
+    return authHeader.substring(6).trim();
 }
 
 function decodeToken(token) {
