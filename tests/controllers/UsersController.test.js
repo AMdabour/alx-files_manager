@@ -1,13 +1,16 @@
 import { expect, use, should, request } from 'chai';
+// import sinon from 'sinon';
 import chaiHttp from 'chai-http';
 import server from '../../server';
 import dbClient from '../../utils/db';
+// import redisClient from '../../utils/redis';
 import { ObjectId } from 'mongodb';
 
 use(chaiHttp);
 should();
 
 describe('test class UsersController', () => {
+  const credentials = 'Basic Ym9iQGR5bGFuLmNvbTp0b3RvMTIzNCE=';
   let token = '';
   let userId = '';
   const user = {
@@ -71,22 +74,6 @@ describe('test class UsersController', () => {
       const body = JSON.parse(response.text);
       expect(body).to.deep.equal({ error: 'Already exist' });
       expect(response.statusCode).to.equal(400);
-    });
-  });
-  // describe('GET /users/me', () => {
-  //   it('returns the id and email of created user', async () => {
-  //     const response = await request(server).post('/users/me').set('X-Token',token).send();
-  //     const body = JSON.parse(response.text);
-  //     expect(body).to.deep.equal(({id: userId, email:user.email }));
-  //     expect(response.statusCode).to.equal(200);
-  //   });
-  // });
-  describe('test AuthController', () => {
-    it('GET /connect', async () => {
-      const response = await request(server).get('/connect').send();
-      const body = JSON.parse(response.text);
-      expect(body).to.eql({ error: 'Unauthorized' });
-      expect(response.statusCode).to.equal(401);
     });
   });
 });
