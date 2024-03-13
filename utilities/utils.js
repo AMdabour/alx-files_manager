@@ -17,7 +17,7 @@ function getToken(authHeader) {
     if  (tokenType !== "Basic ") {
         return null;
     }
-    return authHeader.substring(6).trim();
+    return authHeader.subString(6).trim();
 }
 
 function decodeToken(token) {
