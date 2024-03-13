@@ -96,7 +96,7 @@
 // export default dbClient;
 const { MongoClient } = require('mongodb');
 const mongo = require('mongodb');
-const { pwdHashed } = require('./utils');
+const { pwdHashed } = require('./utilities/utils');
 
 class DBClient {
   constructor() {
