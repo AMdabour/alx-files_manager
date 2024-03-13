@@ -65,6 +65,17 @@ class DBClient {
       return -1;
     }
   }
+
+  async getUser(query) {
+    await dbClient.connect();
+    const user = await dbClient.usersCollection.findOne(query);
+    return user;
+  }
+
+  async getUserById(id) {
+    const user = await this.userscollection.findOne({ _id: new mongo.ObjectID(id)});
+    return user;
+  }
 }
 
 const dbClient = new DBClient();
