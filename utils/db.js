@@ -66,10 +66,13 @@ class DBClient {
     }
   }
 
-  async getUser(query) {
+  async getUser(email) {
     await this.connect();
-    const user = await this.usersCollection.findOne(query);
-    return user;
+    const user = await this.usersCollection.find({email}).toArray();
+    if (!user.length) {
+      return null
+    }
+    return user[0];
   }
 
   async getUserById(id) {
