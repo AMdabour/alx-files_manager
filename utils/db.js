@@ -67,8 +67,8 @@ class DBClient {
   }
 
   async getUser(query) {
-    await dbClient.connect();
-    const user = await dbClient.usersCollection.findOne(query);
+    await this.connect();
+    const user = await this.usersCollection.findOne(query);
     return user;
   }
 
