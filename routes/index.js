@@ -22,6 +22,7 @@ const makeRoutes = (api) => {
   api.get('/files/:id', FilesController.getShow);
   api.put('/files/:id/publish', FilesController.putPublish);
   api.put('/files/:id/unpublish', FilesController.putUnpublish);
+  api.get('/files/:id/data', FilesController.getFile);
 };
 
 export default makeRoutes;
